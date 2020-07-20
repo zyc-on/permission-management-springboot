@@ -95,4 +95,11 @@
         delete from sie_demo.role where id = #{id}
     </delete>
 
+    <delete id="resetRolePermission">
+        delete from sie_demo.role_permission where roleId = #{roleId}
+    </delete>
+
+    <insert id="setRolePermission">
+        insert into sie_demo.role_permission(roleId, permissionId) values(#{roleId},#{permissionId})
+    </insert>
 </mapper>

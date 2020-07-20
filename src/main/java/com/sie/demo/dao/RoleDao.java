@@ -32,4 +32,8 @@ public interface RoleDao {
     @Select("select count(*) from role t")
     int getRoleCount();
 
+    int resetRolePermission(Integer roleId);
+
+    int setRolePermission(Integer roleId,Integer permissionId);
+
 }

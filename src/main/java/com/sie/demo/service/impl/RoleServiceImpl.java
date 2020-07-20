@@ -43,4 +43,13 @@ public class RoleServiceImpl implements RoleService {
     public boolean deleteById(Integer id) {
         return this.roleDao.deleteById(id) > 0;
     }
+
+    @Override
+    public ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds) {
+        roleDao.resetRolePermission(roleId);
+        for (Integer permissionId : permissionIds) {
+            roleDao.setRolePermission(roleId,permissionId);
+        }
+        return ResultJson.success();
+    }
 }

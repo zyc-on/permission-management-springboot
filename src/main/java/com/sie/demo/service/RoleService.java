@@ -5,7 +5,6 @@ import com.sie.demo.model.Role;
 import com.sie.demo.util.ResultJson;
 
 
-
 public interface RoleService {
 
 
@@ -18,5 +17,7 @@ public interface RoleService {
     Role update(Role role);
 
     boolean deleteById(Integer id);
+
+    ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds);
 
 }

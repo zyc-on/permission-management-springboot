@@ -62,7 +62,7 @@ public class PermissionController {
     }
 
     @GetMapping("/children")
-    public ResultJson getChildPermissions(Integer parentId){
+    public ResultJson getChildPermissions(@RequestParam Integer parentId){
         return permissionService.getChildPermissions(parentId);
     }
 }
