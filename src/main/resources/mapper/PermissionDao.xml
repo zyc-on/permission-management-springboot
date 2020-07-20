@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sie.demo.dao.PermissionDao">
+
+    <resultMap type="com.sie.demo.model.Permission" id="PermissionMap">
+    <result property="id" column="id" jdbcType="INTEGER"/>
+    <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+    <result property="name" column="name" jdbcType="VARCHAR"/>
+    <result property="type" column="type" jdbcType="OTHER"/>
+    <result property="description" column="description" jdbcType="VARCHAR"/>
+    <result property="sort" column="sort" jdbcType="INTEGER"/>
+    <result property="status" column="status" jdbcType="OTHER"/>
+    <result property="url" column="url" jdbcType="VARCHAR"/>
+    <result property="icon" column="icon" jdbcType="VARCHAR"/>
+    <result property="identification" column="identification" jdbcType="VARCHAR"/>
+</resultMap>
+
+    <resultMap type="com.sie.demo.model.Permission" id="PermissionTreeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="OTHER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="identification" column="identification" jdbcType="VARCHAR"/>
+        <collection property="children" ofType="com.sie.demo.model.Permission">
+            <id property="id" column="id"></id>
+            <result property="parentId" column="parentId"></result>
+            <result property="name" column="name"></result>
+        </collection>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PermissionMap">
+        select
+          id, parentId, name, type, description, sort, status, url, icon, identification
+        from sie_demo.permission
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PermissionMap">
+        select
+          id, parentId, name, type, description, sort, status, url, icon, identification
+        from sie_demo.permission
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PermissionMap">
+        select
+          id, parentId, name, type, description, sort, status, url, icon, identification
+        from sie_demo.permission
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="description != null and permission != ''">
+                and description = #{description}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="identification != null and identification != ''">
+                and identification = #{identification}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sie_demo.permission(parentId, name, type, description, sort, status, url, icon, identification)
+        values (#{parentId}, #{name}, #{type}, #{description}, #{sort}, #{status}, #{url}, #{icon}, #{identification})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sie_demo.permission
+        <set>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="identification != null and identification != ''">
+                identification = #{identification},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sie_demo.permission where id = #{id}
+    </delete>
+
+    <select id="getPermissionTree" resultMap="PermissionTreeMap">
+        select * from permission p join permission p2 on p.id = p2.parentId
+    </select>
+
+</mapper>

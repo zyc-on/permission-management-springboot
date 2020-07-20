@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sie.demo.dao.UserDao">
+
+    <resultMap type="com.sie.demo.model.User" id="UserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="TINYINT"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          id, username, password, name, gender, tel, email, status, createTime, updateTime, description
+        from sie_demo.user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          id, username, name, password, gender, tel, email, status, createTime, updateTime, description
+        from sie_demo.user
+        limit #{offset}, #{limit}
+    </select>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sie_demo.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="tel != null and tel != ''">
+                tel = #{tel},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+
+            updateTime = now(),
+
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sie_demo.user where id = #{id}
+    </delete>
+
+    <select id="getUsers" resultMap="UserMap">
+        select * from sie_demo.user
+        <where>
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="username!=null">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+            <if test="beginDate != null">
+                and createTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate != null ">
+                and createTime &lt;= #{endDate}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="getUsersCount" resultType="int">
+        select count(*) from sie_demo.user
+        <where>
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="username!=null">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+            <if test="beginDate != null">
+                and createTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate != null ">
+                and createTime &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+</mapper>
