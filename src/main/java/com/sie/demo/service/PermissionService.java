@@ -21,4 +21,8 @@ public interface PermissionService {
 
     ResultJson getPermissionTree();
 
+    ResultJson getRootPermissions();
+
+    ResultJson getChildPermissions(Integer parentId);
+
 }

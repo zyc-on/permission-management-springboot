@@ -34,4 +34,9 @@ public interface PermissionDao {
     List<NameMapper> getIdAndNameMapper();
 
     List<Permission> getPermissionTree();
+
+    List<Permission> getRootPermissions();
+
+    List<Permission> getChildPermissions(Integer parentId);
+
 }

@@ -19,4 +19,5 @@ public interface UserService {
     ResultJson getUserById(Integer id);
 
     ResultJson getUsers(UserQueryParams params);
+
 }

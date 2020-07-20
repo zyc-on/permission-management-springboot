@@ -56,4 +56,13 @@ public class PermissionController {
         return permissionService.getPermissionTree();
     }
 
+    @GetMapping("/root")
+    public ResultJson getRootPermissions(){
+        return permissionService.getRootPermissions();
+    }
+
+    @GetMapping("/children")
+    public ResultJson getChildPermissions(Integer parentId){
+        return permissionService.getChildPermissions(parentId);
+    }
 }

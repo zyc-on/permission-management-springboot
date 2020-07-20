@@ -51,4 +51,14 @@ public class PermissionServiceImpl implements PermissionService {
     public ResultJson getPermissionTree() {
         return new ResultJson(permissionDao.getPermissionTree());
     }
+
+    @Override
+    public ResultJson getRootPermissions() {
+        return new ResultJson(permissionDao.getRootPermissions());
+    }
+
+    @Override
+    public ResultJson getChildPermissions(Integer parentId) {
+        return new ResultJson(permissionDao.getChildPermissions(parentId));
+    }
 }
