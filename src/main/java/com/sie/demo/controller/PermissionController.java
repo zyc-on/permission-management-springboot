@@ -23,10 +23,7 @@ public class PermissionController {
         return permissionService.queryAllByLimit(ph.getOffset(),limit);
     }
 
-    @GetMapping("/mapper")
-    public ResultJson getIdAndNameMapper(){
-        return permissionService.getIdAndNameMapper();
-    }
+
 
     @GetMapping("/{id}")
     public ResultJson getPermissionById(@PathVariable("id") Integer id){
@@ -51,9 +48,9 @@ public class PermissionController {
         return new ResultJson("创建成功");
     }
 
-    @GetMapping("/test")
-    public ResultJson test(){
-        return permissionService.getPermissionTree();
+    @GetMapping("/permissions")
+    public ResultJson getAllPermissions(){
+        return permissionService.getAllPermissions();
     }
 
     @GetMapping("/root")

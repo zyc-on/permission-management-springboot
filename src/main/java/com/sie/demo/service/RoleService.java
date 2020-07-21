@@ -20,4 +20,6 @@ public interface RoleService {
 
     ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds);
 
+    ResultJson getRolePermissions(Integer roleId);
+
 }

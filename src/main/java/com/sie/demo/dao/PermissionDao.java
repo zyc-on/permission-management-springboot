@@ -31,9 +31,8 @@ public interface PermissionDao {
     int getPermissionsCount();
 
     @Select("select id,parentId,type,name from permission t")
-    List<NameMapper> getIdAndNameMapper();
+    List<NameMapper> getAllPermissions();
 
-    List<Permission> getPermissionTree();
 
     List<Permission> getRootPermissions();
 

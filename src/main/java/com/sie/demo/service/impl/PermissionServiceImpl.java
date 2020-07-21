@@ -43,14 +43,10 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public ResultJson getIdAndNameMapper() {
-        return new ResultJson(permissionDao.getIdAndNameMapper());
+    public ResultJson getAllPermissions() {
+        return new ResultJson(permissionDao.getAllPermissions());
     }
 
-    @Override
-    public ResultJson getPermissionTree() {
-        return new ResultJson(permissionDao.getPermissionTree());
-    }
 
     @Override
     public ResultJson getRootPermissions() {

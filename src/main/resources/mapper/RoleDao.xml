@@ -102,4 +102,8 @@
     <insert id="setRolePermission">
         insert into sie_demo.role_permission(roleId, permissionId) values(#{roleId},#{permissionId})
     </insert>
+
+    <select id="getRolePermissions" resultType="java.lang.Integer">
+        select permissionId from sie_demo.role_permission where roleId = #{roleId}
+    </select>
 </mapper>

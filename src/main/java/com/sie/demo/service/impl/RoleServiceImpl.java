@@ -52,4 +52,9 @@ public class RoleServiceImpl implements RoleService {
         }
         return ResultJson.success();
     }
+
+    @Override
+    public ResultJson getRolePermissions(Integer roleId) {
+        return new ResultJson(roleDao.getRolePermissions(roleId));
+    }
 }

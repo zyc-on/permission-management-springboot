@@ -36,4 +36,6 @@ public interface RoleDao {
 
     int setRolePermission(Integer roleId,Integer permissionId);
 
+    Integer[] getRolePermissions(Integer roleId);
+
 }
