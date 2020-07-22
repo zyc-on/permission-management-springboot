@@ -2,7 +2,6 @@ package com.sie.demo.controller;
 
 import com.sie.demo.model.Permission;
 import com.sie.demo.service.PermissionService;
-import com.sie.demo.util.query.PageHelper;
 import com.sie.demo.util.ResultJson;
 import com.sie.demo.util.query.PermissionQueryParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +48,6 @@ public class PermissionController {
         return new ResultJson("创建成功");
     }
 
-    @GetMapping("/permissions")
-    public ResultJson getAllPermissions(){
-        return permissionService.getAllPermissions();
-    }
-
     @GetMapping("/root")
     public ResultJson getRootPermissions(){
         return permissionService.getRootPermissions();
@@ -67,5 +61,10 @@ public class PermissionController {
     @GetMapping("/query")
     public ResultJson queryPermissions(PermissionQueryParams params){
         return permissionService.queryPermissions(params);
+    }
+
+    @GetMapping("/tree")
+    public ResultJson getPermissionTree(){
+        return permissionService.getPermissionTree();
     }
 }

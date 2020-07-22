@@ -21,4 +21,6 @@ public interface UserService {
     ResultJson getUsers(UserQueryParams params);
 
     ResultJson queryUsers(UserQueryParams params);
+
+
 }

@@ -6,10 +6,10 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="parentId" column="parentId" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="OTHER"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="sort" column="sort" jdbcType="INTEGER"/>
-        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="icon" column="icon" jdbcType="VARCHAR"/>
         <result property="identification" column="identification" jdbcType="VARCHAR"/>
@@ -19,21 +19,25 @@
         <result column="total"></result>
     </resultMap>
 
-    <resultMap type="com.sie.demo.model.Permission" id="PermissionTreeMap">
+    <resultMap type="com.sie.demo.util.PermissionTree" id="PermissionTreeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="parentId" column="parentId" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="OTHER"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="sort" column="sort" jdbcType="INTEGER"/>
-        <result property="status" column="status" jdbcType="OTHER"/>
-        <result property="url" column="url" jdbcType="VARCHAR"/>
-        <result property="icon" column="icon" jdbcType="VARCHAR"/>
-        <result property="identification" column="identification" jdbcType="VARCHAR"/>
-        <collection property="children" ofType="com.sie.demo.model.Permission">
-            <id property="id" column="id"></id>
-            <result property="parentId" column="parentId"></result>
-            <result property="name" column="name"></result>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <collection property="children"  ofType="com.sie.demo.util.PermissionTree">
+            <result property="id" column="branch_id" jdbcType="INTEGER"/>
+            <result property="parentId" column="branch_parentId" jdbcType="INTEGER"/>
+            <result property="name" column="branch_name" jdbcType="VARCHAR"/>
+            <result property="type" column="branch_type" jdbcType="TINYINT"/>
+            <result property="status" column="branch_status" jdbcType="TINYINT"/>
+            <collection property="children"  ofType="com.sie.demo.util.PermissionTree">
+                <result property="id" column="leaf_id" jdbcType="INTEGER"/>
+                <result property="parentId" column="leaf_parentId" jdbcType="INTEGER"/>
+                <result property="name" column="leaf_name" jdbcType="VARCHAR"/>
+                <result property="type" column="leaf_type" jdbcType="TINYINT"/>
+                <result property="status" column="leaf_status" jdbcType="TINYINT"/>
+            </collection>
         </collection>
     </resultMap>
 
@@ -165,6 +169,17 @@
         limit #{offset},#{limit};
 
         select found_rows() as total;
+    </select>
+
+    <select id="getPermissionTree" resultMap="PermissionTreeMap">
+        select p1.id,p1.parentId,p1.name,p1.type,p1.status,
+               p2.id as branch_id,p2.parentId as branch_parentId,p2.name as branch_name,p2.type as branch_type,p2.status as branch_status,
+               p3.id as leaf_id,p3.parentId as leaf_parentId,p3.name as leaf_name,p3.type as leaf_type,p3.status as leaf_status
+        from permission p1
+        left join permission p2 on p1.id = p2.parentId
+        left join permission p3 on p2.id = p3.parentId
+        where p1.type = 0
+
     </select>
 
 </mapper>

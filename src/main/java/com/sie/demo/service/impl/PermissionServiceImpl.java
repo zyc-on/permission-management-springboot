@@ -45,10 +45,6 @@ public class PermissionServiceImpl implements PermissionService {
         return this.permissionDao.deleteById(id) > 0;
     }
 
-    @Override
-    public ResultJson getAllPermissions() {
-        return new ResultJson(permissionDao.getAllPermissions());
-    }
 
 
     @Override
@@ -67,5 +63,10 @@ public class PermissionServiceImpl implements PermissionService {
         List<List<?>> list = permissionDao.queryPermissions(params);
         Integer total = (Integer) list.get(1).get(0);
         return new ResultJson(total,list.get(0));
+    }
+
+    @Override
+    public ResultJson getPermissionTree(){
+        return new ResultJson(permissionDao.getPermissionTree());
     }
 }

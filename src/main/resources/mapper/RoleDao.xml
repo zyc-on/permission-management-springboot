@@ -8,7 +8,7 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="validDate" column="validDate" jdbcType="TIMESTAMP"/>
         <result property="expiredDate" column="expiredDate" jdbcType="TIMESTAMP"/>
-        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
         <result property="code" column="code" jdbcType="INTEGER"/>
     </resultMap>
 

@@ -18,7 +18,6 @@ public interface PermissionService {
 
     boolean deleteById(Integer id);
 
-    ResultJson getAllPermissions();
 
     ResultJson getRootPermissions();
 
@@ -26,4 +25,5 @@ public interface PermissionService {
 
     ResultJson queryPermissions(PermissionQueryParams params);
 
+    ResultJson getPermissionTree();
 }

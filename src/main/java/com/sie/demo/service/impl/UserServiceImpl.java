@@ -64,4 +64,6 @@ public class UserServiceImpl implements UserService {
         Integer total = (Integer) list.get(1).get(0);
         return new ResultJson(total,list.get(0));
     }
+
+
 }

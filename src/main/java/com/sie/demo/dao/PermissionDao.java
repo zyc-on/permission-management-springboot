@@ -1,7 +1,7 @@
 package com.sie.demo.dao;
 
-import com.sie.demo.model.NameMapper;
 import com.sie.demo.model.Permission;
+import com.sie.demo.util.PermissionTree;
 import com.sie.demo.util.query.PermissionQueryParams;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,13 +25,11 @@ public interface PermissionDao {
     @Select("select count(*) from permission t")
     int getPermissionsCount();
 
-    @Select("select id,parentId,type,name from permission t")
-    List<NameMapper> getAllPermissions();
-
     List<Permission> getRootPermissions();
 
     List<Permission> getChildPermissions(Integer parentId);
 
     List<List<?>> queryPermissions(PermissionQueryParams params);
 
+    List<PermissionTree> getPermissionTree();
 }
