@@ -3,6 +3,7 @@ package com.sie.demo.dao;
 
 
 import com.sie.demo.model.Role;
+import com.sie.demo.util.query.BaseQueryParams;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -37,5 +38,7 @@ public interface RoleDao {
     int setRolePermission(Integer roleId,Integer permissionId);
 
     Integer[] getRolePermissions(Integer roleId);
+
+    List<List<?>> queryRoles(BaseQueryParams params);
 
 }

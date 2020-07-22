@@ -3,6 +3,7 @@ package com.sie.demo.service;
 
 import com.sie.demo.model.Role;
 import com.sie.demo.util.ResultJson;
+import com.sie.demo.util.query.BaseQueryParams;
 
 
 public interface RoleService {
@@ -21,5 +22,7 @@ public interface RoleService {
     ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds);
 
     ResultJson getRolePermissions(Integer roleId);
+
+    ResultJson queryRoles(BaseQueryParams params);
 
 }

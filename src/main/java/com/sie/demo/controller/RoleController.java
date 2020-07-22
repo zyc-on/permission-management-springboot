@@ -3,6 +3,7 @@ package com.sie.demo.controller;
 
 import com.sie.demo.model.Role;
 import com.sie.demo.service.RoleService;
+import com.sie.demo.util.query.BaseQueryParams;
 import com.sie.demo.util.query.PageHelper;
 import com.sie.demo.util.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @GetMapping("/list")
-    public ResultJson getRoles(Integer page,Integer limit){
-        PageHelper ph = new PageHelper(page,limit);
-        ph.countOffset();
-        return roleService.queryAllByLimit(ph.getOffset(),limit);
-    }
+//    @GetMapping("/list")
+//    public ResultJson getRoles(Integer page,Integer limit){
+//        PageHelper ph = new PageHelper(page,limit);
+//        ph.countOffset();
+//        return roleService.queryAllByLimit(ph.getOffset(),limit);
+//    }
 
     @GetMapping("/{id}")
     public ResultJson getRoleById(@PathVariable("id") Integer id){
@@ -56,4 +57,8 @@ public class RoleController {
         return roleService.getRolePermissions(roleId);
     }
 
+    @GetMapping("/query")
+    public ResultJson queryRoles(BaseQueryParams params){
+        return roleService.queryRoles(params);
+    }
 }

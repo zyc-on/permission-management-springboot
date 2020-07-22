@@ -106,4 +106,21 @@
     <select id="getRolePermissions" resultType="java.lang.Integer">
         select permissionId from sie_demo.role_permission where roleId = #{roleId}
     </select>
+
+    <select id="queryRoles" resultMap="RoleMap,Total">
+        select SQL_CALC_FOUND_ROWS
+            *
+        from role
+        <where>
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+        </where>
+        limit #{offset},#{limit};
+
+        select found_rows() as total;
+    </select>
 </mapper>

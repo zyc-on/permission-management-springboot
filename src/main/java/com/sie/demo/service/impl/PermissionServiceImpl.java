@@ -4,9 +4,12 @@ import com.sie.demo.dao.PermissionDao;
 import com.sie.demo.model.Permission;
 import com.sie.demo.service.PermissionService;
 import com.sie.demo.util.ResultJson;
+import com.sie.demo.util.query.PageHelper;
+import com.sie.demo.util.query.PermissionQueryParams;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
@@ -56,5 +59,13 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public ResultJson getChildPermissions(Integer parentId) {
         return new ResultJson(permissionDao.getChildPermissions(parentId));
+    }
+
+    @Override
+    public ResultJson queryPermissions(PermissionQueryParams params) {
+        params.setOffset(PageHelper.countOffset(params.getPage(),params.getLimit()));
+        List<List<?>> list = permissionDao.queryPermissions(params);
+        Integer total = (Integer) list.get(1).get(0);
+        return new ResultJson(total,list.get(0));
     }
 }

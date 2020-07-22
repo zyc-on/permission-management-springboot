@@ -115,4 +115,27 @@
         </where>
     </select>
 
+    <select id="queryUsers" resultMap="UserMap,Total">
+        select SQL_CALC_FOUND_ROWS * from user
+        <where>
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="username!=null">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+            <if test="beginDate != null">
+                and createTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate != null ">
+                and createTime &lt;= #{endDate}
+            </if>
+        </where>
+        limit #{offset}, #{limit};
+        select found_rows() as total;
+    </select>
+
 </mapper>

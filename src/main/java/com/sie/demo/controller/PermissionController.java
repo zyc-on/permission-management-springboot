@@ -4,6 +4,7 @@ import com.sie.demo.model.Permission;
 import com.sie.demo.service.PermissionService;
 import com.sie.demo.util.query.PageHelper;
 import com.sie.demo.util.ResultJson;
+import com.sie.demo.util.query.PermissionQueryParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,12 @@ public class PermissionController {
     @Autowired
     PermissionService permissionService;
 
-    @GetMapping("/list")
-    public ResultJson getPermissions(Integer page,Integer limit){
-        PageHelper ph = new PageHelper(page,limit);
-        ph.countOffset();
-        return permissionService.queryAllByLimit(ph.getOffset(),limit);
-    }
+//    @GetMapping("/list")
+//    public ResultJson getPermissions(Integer page,Integer limit){
+//        PageHelper ph = new PageHelper(page,limit);
+//        ph.countOffset();
+//        return permissionService.queryAllByLimit(ph.getOffset(),limit);
+//    }
 
 
 
@@ -61,5 +62,10 @@ public class PermissionController {
     @GetMapping("/children")
     public ResultJson getChildPermissions(@RequestParam Integer parentId){
         return permissionService.getChildPermissions(parentId);
+    }
+
+    @GetMapping("/query")
+    public ResultJson queryPermissions(PermissionQueryParams params){
+        return permissionService.queryPermissions(params);
     }
 }

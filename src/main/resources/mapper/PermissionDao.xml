@@ -3,17 +3,21 @@
 <mapper namespace="com.sie.demo.dao.PermissionDao">
 
     <resultMap type="com.sie.demo.model.Permission" id="PermissionMap">
-    <result property="id" column="id" jdbcType="INTEGER"/>
-    <result property="parentId" column="parentId" jdbcType="INTEGER"/>
-    <result property="name" column="name" jdbcType="VARCHAR"/>
-    <result property="type" column="type" jdbcType="OTHER"/>
-    <result property="description" column="description" jdbcType="VARCHAR"/>
-    <result property="sort" column="sort" jdbcType="INTEGER"/>
-    <result property="status" column="status" jdbcType="OTHER"/>
-    <result property="url" column="url" jdbcType="VARCHAR"/>
-    <result property="icon" column="icon" jdbcType="VARCHAR"/>
-    <result property="identification" column="identification" jdbcType="VARCHAR"/>
-</resultMap>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="OTHER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="identification" column="identification" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="Total" type="java.lang.Integer">
+        <result column="total"></result>
+    </resultMap>
 
     <resultMap type="com.sie.demo.model.Permission" id="PermissionTreeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
@@ -52,7 +56,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="PermissionMap">
         select
-          id, parentId, name, type, description, sort, status, url, icon, identification
+        id, parentId, name, type, description, sort, status, url, icon, identification
         from sie_demo.permission
         <where>
             <if test="id != null">
@@ -140,6 +144,27 @@
 
     <select id="getChildPermissions" resultMap="PermissionMap">
         select * from permission p where p.parentId = #{parentId}
+    </select>
+
+    <select id="queryPermissions" resultMap="PermissionMap,Total">
+        select SQL_CALC_FOUND_ROWS
+            p1.*,p2.name as parentName
+        from permission p1
+        left join permission p2 on p1.parentId = p2.id
+        <where>
+            <if test="name!=null">
+                and p1.name like concat('%',#{name},'%')
+            </if>
+            <if test="status!=null">
+                and p1.status = #{status}
+            </if>
+            <if test="type!=null">
+                and p1.type=#{type}
+            </if>
+        </where>
+        limit #{offset},#{limit};
+
+        select found_rows() as total;
     </select>
 
 </mapper>

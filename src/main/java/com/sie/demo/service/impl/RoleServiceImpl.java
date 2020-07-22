@@ -5,10 +5,12 @@ import com.sie.demo.dao.RoleDao;
 import com.sie.demo.model.Role;
 import com.sie.demo.service.RoleService;
 import com.sie.demo.util.ResultJson;
+import com.sie.demo.util.query.BaseQueryParams;
+import com.sie.demo.util.query.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 
 @Service("roleService")
@@ -56,5 +58,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public ResultJson getRolePermissions(Integer roleId) {
         return new ResultJson(roleDao.getRolePermissions(roleId));
+    }
+
+    public ResultJson queryRoles(BaseQueryParams params){
+        params.setOffset(PageHelper.countOffset(params.getPage(),params.getLimit()));
+        List<List<?>> list = roleDao.queryRoles(params);
+        Integer total = (Integer) list.get(1).get(0);
+        return new ResultJson(total,list.get(0));
     }
 }

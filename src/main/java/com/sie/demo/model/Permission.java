@@ -10,6 +10,7 @@ public class Permission implements Serializable {
 
     private Integer id;
     private Integer parentId;
+    private String parentName;
     private String name;
     private Integer type;
     private String description;
@@ -20,9 +21,5 @@ public class Permission implements Serializable {
     private String identification;
     private List<Permission> children;
 
-    public Permission(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }
 

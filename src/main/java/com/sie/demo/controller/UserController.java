@@ -58,4 +58,9 @@ public class UserController {
         return userService.getUsers(params);
     }
 
+    @GetMapping("query")
+    public ResultJson queryUsers(UserQueryParams params){
+        return userService.queryUsers(params);
+    }
+
 }

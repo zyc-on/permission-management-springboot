@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Range;
  * @date 2020-07-16 14:38:58
  */
 @Data
-public class MenuQueryParams extends BaseQueryParams {
+public class PermissionQueryParams extends BaseQueryParams {
     @Range(min = 0,max = 2,message = "type参数不合法")
     private Integer type;
 }
