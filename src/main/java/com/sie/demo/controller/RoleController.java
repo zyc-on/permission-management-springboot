@@ -47,13 +47,13 @@ public class RoleController {
         return new ResultJson("删除角色成功");
     }
 
-    @PutMapping("/{roleId}/permission")
-    public ResultJson setRolePermission(@PathVariable("roleId") Integer roleId,@RequestBody Integer[] permissionIds){
+    @PutMapping("/{id}/permissions")
+    public ResultJson setRolePermission(@PathVariable("id") Integer roleId,@RequestBody Integer[] permissionIds){
         return roleService.setRolePermissions(roleId,permissionIds);
     }
 
-    @GetMapping("/{roleId}/permission")
-    public ResultJson getRolePermission(@PathVariable("roleId") Integer roleId){
+    @GetMapping("/{id}/permissions")
+    public ResultJson getRolePermission(@PathVariable("id") Integer roleId){
         return roleService.getRolePermissions(roleId);
     }
 

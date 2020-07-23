@@ -22,5 +22,8 @@ public interface UserService {
 
     ResultJson queryUsers(UserQueryParams params);
 
+    ResultJson getUserRoles(Integer userId);
+
+    ResultJson setUserRoles(Integer userId,Integer[] roles);
 
 }

@@ -33,5 +33,10 @@ public interface UserDao {
 
     List<List<?>> queryUsers(UserQueryParams params);
 
+    int resetUserRole(Integer userId);
+
+    int setUserRole(Integer userId,Integer roleId);
+
+    Integer[] getUserRoles(Integer userId);
 
 }

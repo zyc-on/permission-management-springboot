@@ -134,8 +134,22 @@
                 and createTime &lt;= #{endDate}
             </if>
         </where>
-        limit #{offset}, #{limit};
+        <if test="offset!=null and limit!=null">
+            limit #{offset}, #{limit}
+        </if>;
         select found_rows() as total;
     </select>
+
+    <select id="getUserRoles" resultType="java.lang.Integer">
+        select roleId from role_user where userId = #{userId}
+    </select>
+
+    <delete id="resetUserRole">
+        delete from role_user where userId = #{userId}
+    </delete>
+
+    <insert id="setUserRole">
+        insert into role_user(userId, roleId) values (#{userId},#{roleId})
+    </insert>
 
 </mapper>

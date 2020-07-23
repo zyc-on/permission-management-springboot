@@ -65,5 +65,17 @@ public class UserServiceImpl implements UserService {
         return new ResultJson(total,list.get(0));
     }
 
+    @Override
+    public ResultJson getUserRoles(Integer userId) {
+        return new ResultJson(userDao.getUserRoles(userId));
+    }
 
+    @Override
+    public ResultJson setUserRoles(Integer userId, Integer[] roleIds) {
+        userDao.resetUserRole(userId);
+        for (Integer roleId : roleIds) {
+            userDao.setUserRole(userId,roleId);
+        }
+        return ResultJson.success();
+    }
 }

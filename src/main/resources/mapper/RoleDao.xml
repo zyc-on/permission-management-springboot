@@ -119,7 +119,9 @@
                 and status = #{status}
             </if>
         </where>
-        limit #{offset},#{limit};
+        <if test="offset!=null and limit!=null">
+            limit #{offset}, #{limit}
+        </if>;
 
         select found_rows() as total;
     </select>

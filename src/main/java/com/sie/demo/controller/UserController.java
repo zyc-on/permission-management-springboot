@@ -63,4 +63,14 @@ public class UserController {
         return userService.queryUsers(params);
     }
 
+    @GetMapping("/{id}/roles")
+    public ResultJson getUserRoles(@PathVariable("id") Integer userId){
+        return userService.getUserRoles(userId);
+    }
+
+    @PutMapping("/{id}/roles")
+    public ResultJson setUserRoles(@PathVariable("id") Integer userId,@RequestBody Integer[] roleIds){
+        return userService.setUserRoles(userId,roleIds);
+    }
+
 }
