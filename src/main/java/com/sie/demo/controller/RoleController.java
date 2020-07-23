@@ -47,6 +47,11 @@ public class RoleController {
         return new ResultJson("删除角色成功");
     }
 
+    @DeleteMapping("/group")
+    public ResultJson deleteRoles(@RequestBody Integer[] ids){
+        return roleService.deleteRolesByIds(ids);
+    }
+
     @PutMapping("/{id}/permissions")
     public ResultJson setRolePermission(@PathVariable("id") Integer roleId,@RequestBody Integer[] permissionIds){
         return roleService.setRolePermissions(roleId,permissionIds);

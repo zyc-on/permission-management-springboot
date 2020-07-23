@@ -50,6 +50,11 @@ public class UserController {
         return new ResultJson("删除成功");
     }
 
+    @DeleteMapping("/group")
+    public ResultJson deleteUsers(@RequestBody Integer[] ids){
+        return userService.deleteUsersByIds(ids);
+    }
+
     @GetMapping("/list")
     public ResultJson search(UserQueryParams params){
         System.out.println(params.getBeginDate());

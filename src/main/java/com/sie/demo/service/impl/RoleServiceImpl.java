@@ -46,6 +46,13 @@ public class RoleServiceImpl implements RoleService {
         return this.roleDao.deleteById(id) > 0;
     }
 
+    public ResultJson deleteRolesByIds(Integer[] ids){
+        for (Integer id : ids) {
+            roleDao.deleteById(id);
+        }
+        return new ResultJson("删除角色成功");
+    }
+
     @Override
     public ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds) {
         roleDao.resetRolePermission(roleId);

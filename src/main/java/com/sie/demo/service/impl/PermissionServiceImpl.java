@@ -45,6 +45,13 @@ public class PermissionServiceImpl implements PermissionService {
         return this.permissionDao.deleteById(id) > 0;
     }
 
+    public ResultJson deletePermissionsByIds(Integer[] ids){
+        for (Integer id : ids) {
+            permissionDao.deleteById(id);
+        }
+        return new ResultJson("删除权限成功");
+    }
+
 
 
     @Override

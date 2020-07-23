@@ -19,6 +19,8 @@ public interface RoleService {
 
     boolean deleteById(Integer id);
 
+    ResultJson deleteRolesByIds(Integer[] ids);
+
     ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds);
 
     ResultJson getRolePermissions(Integer roleId);

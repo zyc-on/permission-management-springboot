@@ -16,6 +16,8 @@ public interface UserService {
 
     boolean deleteById(Integer id);
 
+    ResultJson deleteUsersByIds(Integer[] ids);
+
     ResultJson getUserById(Integer id);
 
     ResultJson getUsers(UserQueryParams params);

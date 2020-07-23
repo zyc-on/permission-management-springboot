@@ -18,6 +18,7 @@ public interface PermissionService {
 
     boolean deleteById(Integer id);
 
+    ResultJson deletePermissionsByIds(Integer[] ids);
 
     ResultJson getRootPermissions();
 

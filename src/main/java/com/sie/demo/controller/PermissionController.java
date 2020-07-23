@@ -42,6 +42,11 @@ public class PermissionController {
         return new ResultJson("删除成功");
     }
 
+    @DeleteMapping("/group")
+    public ResultJson deletePermissions(@RequestBody Integer[] ids){
+        return permissionService.deletePermissionsByIds(ids);
+    }
+
     @PostMapping("/create")
     public ResultJson createPermission(@RequestBody Permission permission){
         permissionService.insert(permission);

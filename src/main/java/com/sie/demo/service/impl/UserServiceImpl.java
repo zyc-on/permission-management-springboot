@@ -46,6 +46,13 @@ public class UserServiceImpl implements UserService {
         return this.userDao.deleteById(id) > 0;
     }
 
+    public ResultJson deleteUsersByIds(Integer[] ids){
+        for (Integer id : ids) {
+            userDao.deleteById(id);
+        }
+        return new ResultJson("删除用户成功");
+    }
+
     @Override
     public ResultJson getUserById(Integer id) {
         System.out.println(userDao.queryById(id).getCreateTime());
