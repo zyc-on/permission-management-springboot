@@ -6,15 +6,15 @@ import com.sie.demo.util.ResultJson;
 
 
 public interface UserService {
-    User getUserByName(String username);
+    ResultJson getUserByName(String username);
 
     ResultJson getUsersByPage(Integer offset, Integer limit);
 
-    int insertUser(User user);
+    ResultJson insertUser(User user);
 
-    int updateUser(User user);
+    ResultJson updateUser(User user);
 
-    boolean deleteById(Integer id);
+    ResultJson deleteById(Integer id);
 
     ResultJson deleteUsersByIds(Integer[] ids);
 

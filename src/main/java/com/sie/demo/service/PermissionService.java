@@ -7,16 +7,16 @@ import com.sie.demo.util.query.PermissionQueryParams;
 
 public interface PermissionService {
 
-    Permission queryById(Integer id);
+    ResultJson queryById(Integer id);
 
     ResultJson queryAllByLimit(Integer offset, Integer limit);
 
-    Permission insert(Permission permission);
+    ResultJson insert(Permission permission);
 
 
-    Permission update(Permission permission);
+    ResultJson update(Permission permission);
 
-    boolean deleteById(Integer id);
+    ResultJson deleteById(Integer id);
 
     ResultJson deletePermissionsByIds(Integer[] ids);
 

@@ -9,15 +9,15 @@ import com.sie.demo.util.query.BaseQueryParams;
 public interface RoleService {
 
 
-    Role queryById(Integer id);
+    ResultJson queryById(Integer id);
 
     ResultJson queryAllByLimit(Integer offset, Integer limit);
 
-    Role insert(Role role);
+    ResultJson insert(Role role);
 
-    Role update(Role role);
+    ResultJson update(Role role);
 
-    boolean deleteById(Integer id);
+    ResultJson deleteById(Integer id);
 
     ResultJson deleteRolesByIds(Integer[] ids);
 

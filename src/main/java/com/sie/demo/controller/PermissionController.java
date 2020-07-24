@@ -16,60 +16,48 @@ public class PermissionController {
     @Autowired
     PermissionService permissionService;
 
-//    @GetMapping("/list")
-//    public ResultJson getPermissions(Integer page,Integer limit){
-//        PageHelper ph = new PageHelper(page,limit);
-//        ph.countOffset();
-//        return permissionService.queryAllByLimit(ph.getOffset(),limit);
-//    }
-
-
-
     @GetMapping("/{id}")
-    public ResultJson getPermissionById(@PathVariable("id") Integer id){
-        return new ResultJson(permissionService.queryById(id));
+    public ResultJson getPermissionById(@PathVariable("id") Integer id) {
+        return permissionService.queryById(id);
     }
 
     @PutMapping("/{id}")
-    public ResultJson updatePermission(@PathVariable("id") Integer id,@RequestBody Permission permission){
-        permissionService.update(permission);
-        return new ResultJson("更新成功");
+    public ResultJson updatePermission(@PathVariable("id") Integer id, @RequestBody Permission permission) {
+        return permissionService.update(permission);
     }
 
     @DeleteMapping("/{id}")
-    public ResultJson deletePermissionById(@PathVariable("id") Integer id){
-        permissionService.deleteById(id);
-        return new ResultJson("删除成功");
+    public ResultJson deletePermissionById(@PathVariable("id") Integer id) {
+        return permissionService.deleteById(id);
     }
 
     @DeleteMapping("/group")
-    public ResultJson deletePermissions(@RequestBody Integer[] ids){
+    public ResultJson deletePermissions(@RequestBody Integer[] ids) {
         return permissionService.deletePermissionsByIds(ids);
     }
 
     @PostMapping("/create")
-    public ResultJson createPermission(@RequestBody Permission permission){
-        permissionService.insert(permission);
-        return new ResultJson("创建成功");
+    public ResultJson createPermission(@RequestBody Permission permission) {
+        return permissionService.insert(permission);
     }
 
     @GetMapping("/root")
-    public ResultJson getRootPermissions(){
+    public ResultJson getRootPermissions() {
         return permissionService.getRootPermissions();
     }
 
     @GetMapping("/children")
-    public ResultJson getChildPermissions(@RequestParam Integer parentId){
+    public ResultJson getChildPermissions(@RequestParam Integer parentId) {
         return permissionService.getChildPermissions(parentId);
     }
 
     @GetMapping("/query")
-    public ResultJson queryPermissions(PermissionQueryParams params){
+    public ResultJson queryPermissions(PermissionQueryParams params) {
         return permissionService.queryPermissions(params);
     }
 
     @GetMapping("/tree")
-    public ResultJson getPermissionTree(){
+    public ResultJson getPermissionTree() {
         return permissionService.getPermissionTree();
     }
 }

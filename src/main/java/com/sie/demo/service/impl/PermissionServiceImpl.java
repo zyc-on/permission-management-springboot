@@ -18,8 +18,8 @@ public class PermissionServiceImpl implements PermissionService {
 
 
     @Override
-    public Permission queryById(Integer id) {
-        return this.permissionDao.queryById(id);
+    public ResultJson queryById(Integer id) {
+        return new ResultJson(permissionDao.queryById(id));
     }
 
 
@@ -29,29 +29,29 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Permission insert(Permission permission) {
+    public ResultJson insert(Permission permission) {
         this.permissionDao.insert(permission);
-        return permission;
+        return ResultJson.success();
     }
 
     @Override
-    public Permission update(Permission permission) {
+    public ResultJson update(Permission permission) {
         this.permissionDao.update(permission);
-        return this.queryById(permission.getId());
+        return ResultJson.success();
     }
 
     @Override
-    public boolean deleteById(Integer id) {
-        return this.permissionDao.deleteById(id) > 0;
+    public ResultJson deleteById(Integer id) {
+        permissionDao.deleteById(id);
+        return ResultJson.success();
     }
 
-    public ResultJson deletePermissionsByIds(Integer[] ids){
+    public ResultJson deletePermissionsByIds(Integer[] ids) {
         for (Integer id : ids) {
             permissionDao.deleteById(id);
         }
-        return new ResultJson("删除权限成功");
+        return ResultJson.success();
     }
-
 
 
     @Override
@@ -66,14 +66,14 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public ResultJson queryPermissions(PermissionQueryParams params) {
-        params.setOffset(PageHelper.countOffset(params.getPage(),params.getLimit()));
+        params.setOffset(PageHelper.countOffset(params.getPage(), params.getLimit()));
         List<List<?>> list = permissionDao.queryPermissions(params);
         Integer total = (Integer) list.get(1).get(0);
-        return new ResultJson(total,list.get(0));
+        return new ResultJson(total, list.get(0));
     }
 
     @Override
-    public ResultJson getPermissionTree(){
+    public ResultJson getPermissionTree() {
         return new ResultJson(permissionDao.getPermissionTree());
     }
 }

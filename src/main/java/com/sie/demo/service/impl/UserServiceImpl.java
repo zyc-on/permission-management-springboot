@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User getUserByName(String username) {
-        return userDao.queryByName(username);
+    public ResultJson getUserByName(String username) {
+        return new ResultJson(userDao.queryByName(username));
     }
 
     @Override
@@ -32,25 +32,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int insertUser(User user) {
-        return userDao.insert(user);
+    public ResultJson insertUser(User user) {
+        userDao.insert(user);
+        return ResultJson.success();
     }
 
     @Override
-    public int updateUser(User user) {
-        return userDao.update(user);
+    public ResultJson updateUser(User user) {
+        userDao.update(user);
+        return ResultJson.success();
     }
 
     @Override
-    public boolean deleteById(Integer id) {
-        return this.userDao.deleteById(id) > 0;
+    public ResultJson deleteById(Integer id) {
+        userDao.deleteById(id);
+        return ResultJson.success();
     }
 
     public ResultJson deleteUsersByIds(Integer[] ids){
         for (Integer id : ids) {
             userDao.deleteById(id);
         }
-        return new ResultJson("删除用户成功");
+        return ResultJson.success();
     }
 
     @Override

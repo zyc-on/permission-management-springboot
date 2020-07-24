@@ -39,4 +39,5 @@ public class ResultJson {
         return new ResultJson("操作成功！");
     }
     public static ResultJson failure(){return new ResultJson("失败，请重试！");}
+
 }

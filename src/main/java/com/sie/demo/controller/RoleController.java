@@ -17,13 +17,6 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-//    @GetMapping("/list")
-//    public ResultJson getRoles(Integer page,Integer limit){
-//        PageHelper ph = new PageHelper(page,limit);
-//        ph.countOffset();
-//        return roleService.queryAllByLimit(ph.getOffset(),limit);
-//    }
-
     @GetMapping("/{id}")
     public ResultJson getRoleById(@PathVariable("id") Integer id){
         return new ResultJson(roleService.queryById(id));
@@ -31,20 +24,18 @@ public class RoleController {
 
     @PostMapping("/create")
     public ResultJson createRole(@RequestBody Role role){
-        roleService.insert(role);
-        return new ResultJson("创建角色成功");
+        return roleService.insert(role);
     }
 
     @PutMapping("/{id}")
     public ResultJson updateRole(@PathVariable("id") Integer id,@RequestBody Role role){
-        roleService.update(role);
-        return new ResultJson("更新角色成功");
+        return roleService.update(role);
+
     }
 
     @DeleteMapping("/{id}")
     public ResultJson deleteRoleById(@PathVariable("id") Integer id){
-        roleService.deleteById(id);
-        return new ResultJson("删除角色成功");
+        return roleService.deleteById(id);
     }
 
     @DeleteMapping("/group")

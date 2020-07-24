@@ -19,34 +19,35 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
 
     @Override
-    public Role queryById(Integer id) {
-        return this.roleDao.queryById(id);
+    public ResultJson queryById(Integer id) {
+        return new ResultJson(roleDao.queryById(id));
     }
 
     @Override
     public ResultJson queryAllByLimit(Integer offset, Integer limit) {
-        return new ResultJson(roleDao.getRoleCount(),roleDao.queryAllByLimit(offset,limit));
+        return new ResultJson(roleDao.getRoleCount(), roleDao.queryAllByLimit(offset, limit));
     }
 
     @Override
-    public Role insert(Role role) {
-        this.roleDao.insert(role);
-        return role;
+    public ResultJson insert(Role role) {
+        roleDao.insert(role);
+        return new ResultJson("创建角色成功");
     }
 
     @Override
-    public Role update(Role role) {
-        this.roleDao.update(role);
-        return this.queryById(role.getId());
+    public ResultJson update(Role role) {
+        roleDao.update(role);
+        return new ResultJson("更新角色成功");
     }
 
 
     @Override
-    public boolean deleteById(Integer id) {
-        return this.roleDao.deleteById(id) > 0;
+    public ResultJson deleteById(Integer id) {
+        this.roleDao.deleteById(id);
+        return new ResultJson("删除角色成功");
     }
 
-    public ResultJson deleteRolesByIds(Integer[] ids){
+    public ResultJson deleteRolesByIds(Integer[] ids) {
         for (Integer id : ids) {
             roleDao.deleteById(id);
         }
@@ -57,9 +58,9 @@ public class RoleServiceImpl implements RoleService {
     public ResultJson setRolePermissions(Integer roleId, Integer[] permissionIds) {
         roleDao.resetRolePermission(roleId);
         for (Integer permissionId : permissionIds) {
-            roleDao.setRolePermission(roleId,permissionId);
+            roleDao.setRolePermission(roleId, permissionId);
         }
-        return ResultJson.success();
+        return new ResultJson("设置角色权限成功");
     }
 
     @Override
@@ -67,10 +68,10 @@ public class RoleServiceImpl implements RoleService {
         return new ResultJson(roleDao.getRolePermissions(roleId));
     }
 
-    public ResultJson queryRoles(BaseQueryParams params){
-        params.setOffset(PageHelper.countOffset(params.getPage(),params.getLimit()));
+    public ResultJson queryRoles(BaseQueryParams params) {
+        params.setOffset(PageHelper.countOffset(params.getPage(), params.getLimit()));
         List<List<?>> list = roleDao.queryRoles(params);
         Integer total = (Integer) list.get(1).get(0);
-        return new ResultJson(total,list.get(0));
+        return new ResultJson(total, list.get(0));
     }
 }

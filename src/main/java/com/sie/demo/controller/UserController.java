@@ -19,18 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-//    @GetMapping("/list")
-//    public ResultJson getUsers(Integer page,Integer limit){
-//        PageHelper ph = new PageHelper(page,limit);
-//        ph.countOffset();
-//       return userService.getUsersByPage(ph.getOffset(),ph.getLimit());
-//    }
-
     @PostMapping("/create")
     public ResultJson createUser(@RequestBody User user){
-        userService.insertUser(user);
-        return new ResultJson("创建用户成功");
+        return userService.insertUser(user);
     }
 
     @GetMapping("/{id}")
@@ -40,14 +31,12 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResultJson updateUser(@PathVariable("id") int id,@RequestBody User user){
-        userService.updateUser(user);
-        return new ResultJson("更新成功");
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
     public ResultJson deleteUserById(@PathVariable("id") int id){
-        userService.deleteById(id);
-        return new ResultJson("删除成功");
+        return userService.deleteById(id);
     }
 
     @DeleteMapping("/group")
@@ -57,8 +46,6 @@ public class UserController {
 
     @GetMapping("/list")
     public ResultJson search(UserQueryParams params){
-        System.out.println(params.getBeginDate());
-        System.out.println(params.getEndDate());
         params.setOffset(PageHelper.countOffset(params.getPage(),params.getLimit()));
         return userService.getUsers(params);
     }
