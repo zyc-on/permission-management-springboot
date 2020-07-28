@@ -181,7 +181,6 @@
         left join permission p2 on p1.id = p2.parentId
         left join permission p3 on p2.id = p3.parentId
         where p1.type = 0
-
     </select>
 
 </mapper>
