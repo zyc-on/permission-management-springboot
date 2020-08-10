@@ -125,4 +125,8 @@
 
         select found_rows() as total;
     </select>
+
+    <update id="updateStatus">
+        update role set status = #{status} where role.id = #{id}
+    </update>
 </mapper>

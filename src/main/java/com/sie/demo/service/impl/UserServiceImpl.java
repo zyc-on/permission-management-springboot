@@ -7,6 +7,9 @@ import com.sie.demo.util.query.PageHelper;
 import com.sie.demo.util.query.UserQueryParams;
 import com.sie.demo.util.ResultJson;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,11 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    @Bean
+    public PasswordEncoder pwdEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Resource
     private UserDao userDao;
@@ -33,6 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultJson insertUser(User user) {
+        System.out.println(user.getName());
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        user.setPassword(pwdEncoder().encode(user.getPassword()));
+
         userDao.insert(user);
         return ResultJson.success();
     }
@@ -88,4 +101,25 @@ public class UserServiceImpl implements UserService {
         }
         return ResultJson.success();
     }
+
+    @Override
+    public ResultJson updateStatus(Integer id, Integer status) {
+        userDao.updateStatus(status,id);
+        return new ResultJson("更新状态成功");
+    }
+
+    @Override
+    public ResultJson updatePassword(Integer id, String password) {
+        userDao.updatePassword(id,pwdEncoder().encode(password));
+        return ResultJson.success();
+    }
+
+    @Override
+    public ResultJson resetPassword(Integer id) {
+        String pwd = pwdEncoder().encode("123456");
+        System.out.println(pwd);
+        userDao.updatePassword(id,pwd);
+        return ResultJson.success();
+    }
+
 }

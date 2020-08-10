@@ -41,4 +41,6 @@ public interface RoleDao {
 
     List<List<?>> queryRoles(BaseQueryParams params);
 
+    int updateStatus(Integer status,Integer id);
+
 }

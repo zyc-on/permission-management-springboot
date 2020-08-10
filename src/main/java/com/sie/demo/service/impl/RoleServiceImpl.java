@@ -74,4 +74,10 @@ public class RoleServiceImpl implements RoleService {
         Integer total = (Integer) list.get(1).get(0);
         return new ResultJson(total, list.get(0));
     }
+
+    @Override
+    public ResultJson updateStatus(Integer id, Integer status) {
+        roleDao.updateStatus(status,id);
+        return new ResultJson("更新状态成功");
+    }
 }

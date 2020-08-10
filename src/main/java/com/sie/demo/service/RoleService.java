@@ -27,4 +27,6 @@ public interface RoleService {
 
     ResultJson queryRoles(BaseQueryParams params);
 
+    ResultJson updateStatus(Integer id,Integer status);
+
 }

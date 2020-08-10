@@ -32,4 +32,9 @@ public interface PermissionDao {
     List<List<?>> queryPermissions(PermissionQueryParams params);
 
     List<PermissionTree> getPermissionTree();
+
+    int updateStatus(Integer status,Integer id);
+
+    List<Permission> getAsideMenus();
+
 }

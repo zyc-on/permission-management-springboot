@@ -1,6 +1,7 @@
 package com.sie.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -23,7 +24,7 @@ public class User implements Serializable {
     @Length(min = 2,max = 20,message = "用户名长度不合法（2-20字符）")
     private String username;
 
-    @Length(min = 6,max = 20,message = "密码长度不合法（2-20位）")
+//    @JsonIgnore
     private String password;
 
     @NotBlank(message = "名字不能为空")

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -18,6 +19,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResultJson methodArgumentNotValidException(MethodArgumentNotValidException e){
         return new ResultJson(e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public ResultJson accessDeniedException(AccessDeniedException e){
+        return new ResultJson("权限不足"+e.getMessage()+e.getReason());
     }
 
     @ExceptionHandler(value = Exception.class)

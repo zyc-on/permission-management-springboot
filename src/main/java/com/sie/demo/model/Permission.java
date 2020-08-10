@@ -18,5 +18,6 @@ public class Permission implements Serializable {
     private String url;
     private String icon;
     private String identification;
+    private String component;
 }
 

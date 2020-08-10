@@ -1,5 +1,6 @@
 package com.sie.demo.dao;
 
+import com.sie.demo.model.Permission;
 import com.sie.demo.model.User;
 import com.sie.demo.util.query.UserQueryParams;
 import org.apache.ibatis.annotations.*;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
-    @Select("select * from user t where t.username = #{username}")
+//    @Select("select * from user t where t.username = #{username}")
     User queryByName(String username);
 
     @Select("select * from user t order by t.id limit #{offset},#{limit}")
@@ -39,4 +40,9 @@ public interface UserDao {
 
     Integer[] getUserRoles(Integer userId);
 
+    int updateStatus(Integer status,Integer id);
+
+    int updatePassword(Integer id,String password);
+
+    List<Permission> getUserPermissions(Integer userId);
 }

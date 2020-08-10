@@ -16,6 +16,20 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap type="com.sie.demo.model.Permission" id="PermissionMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parentId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="identification" column="identification" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
@@ -152,4 +166,22 @@
         insert into role_user(userId, roleId) values (#{userId},#{roleId})
     </insert>
 
+    <update id="updateStatus">
+        update user set status = #{status} where id = #{id}
+    </update>
+
+    <update id="updatePassword">
+        update user set password = #{password} where id = #{id}
+    </update>
+
+    <select id="getUserPermissions" resultMap="PermissionMap">
+        select * from permission p
+            where p.id in
+                (select rp.permissionId from role_permission rp where rp.roleId in
+                    (select ru.roleId from role_user ru where ru.userId = #{id}))
+    </select>
+
+    <select id="queryByName" resultMap="UserMap">
+        select * from user where username = #{username}
+    </select>
 </mapper>

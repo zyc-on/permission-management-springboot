@@ -27,4 +27,8 @@ public interface PermissionService {
     ResultJson queryPermissions(PermissionQueryParams params);
 
     ResultJson getPermissionTree();
+
+    ResultJson updateStatus(Integer id,Integer status);
+
+    ResultJson getAsideMenus();
 }

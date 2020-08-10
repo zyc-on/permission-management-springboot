@@ -13,6 +13,7 @@
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="icon" column="icon" jdbcType="VARCHAR"/>
         <result property="identification" column="identification" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="Total" type="java.lang.Integer">
@@ -133,6 +134,9 @@
             <if test="identification != null and identification != ''">
                 identification = #{identification},
             </if>
+            <if test="component != null and component != ''">
+                component = #{component},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -181,6 +185,14 @@
         left join permission p2 on p1.id = p2.parentId
         left join permission p3 on p2.id = p3.parentId
         where p1.type = 0
+    </select>
+
+    <update id="updateStatus">
+        update permission set status = #{status} where permission.id = #{id}
+    </update>
+
+    <select id="getAsideMenus" resultMap="PermissionMap">
+        select * from permission p where p.type=0 or p.type=1
     </select>
 
 </mapper>

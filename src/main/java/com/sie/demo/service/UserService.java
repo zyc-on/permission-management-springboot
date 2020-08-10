@@ -28,4 +28,9 @@ public interface UserService {
 
     ResultJson setUserRoles(Integer userId,Integer[] roles);
 
+    ResultJson updateStatus(Integer id,Integer status);
+
+    ResultJson updatePassword(Integer id, String password);
+
+    ResultJson resetPassword(Integer id);
 }

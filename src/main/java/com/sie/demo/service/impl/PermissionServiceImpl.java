@@ -76,4 +76,17 @@ public class PermissionServiceImpl implements PermissionService {
     public ResultJson getPermissionTree() {
         return new ResultJson(permissionDao.getPermissionTree());
     }
+
+    @Override
+    public ResultJson updateStatus(Integer id, Integer status) {
+        permissionDao.updateStatus(status,id);
+        return new ResultJson("更新状态成功");
+    }
+
+    @Override
+    public ResultJson getAsideMenus() {
+        return new ResultJson(permissionDao.getAsideMenus());
+    }
+
+
 }
